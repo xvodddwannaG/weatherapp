@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Favorites } from './components/Favorites';
 import { Card } from './components/Card/Card'
 import { Form } from './components/Form/Form'
-import {addFavorites, favoritesStorage} from './utils/localstorage'
+import {addFavorites, favoritesStorage, clearFavorites} from './utils/localstorage'
 
 function App() {
 
@@ -31,7 +31,7 @@ function App() {
     <div className="App">
       <Form fetchApi={fetchData} inputValid={inputValid} />
       <Card temp={mainTemp} city={validCity} />
-      <Favorites city={validCity} inputValid={inputValid} addFavorites={addFavorites} favorites={favoritesStorage} fetchApi={fetchData} />
+      <Favorites city={validCity} inputValid={inputValid} addFavorites={addFavorites} favorites={favoritesStorage} fetchApi={fetchData} clearFavorites={clearFavorites} />
     </div>
   );
 }

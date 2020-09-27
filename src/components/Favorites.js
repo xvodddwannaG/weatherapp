@@ -25,17 +25,20 @@ export const Favorites = (props) => {
         <div>
             <button className="btn btn-success btn-sm add" onClick={() => {
                 props.addFavorites(props.city)
-                setFav(props.favorites)
+                setFav(props.favorites) 
             }} > Add city to Favorites</button>
             <div className="favorites">
                 Favorites:
                 <br />
-                {props.favorites !== null ?
+                {props.favorites != null ?
                     props.favorites.map((item, index) => (
                         <button className="btn btn-primary" data-item={item} key={index} onClick={btnFav}>{item}</button>
                     ))
                     : 'Empty'}
             </div>
+            <hr/>
+
+            <button className="btn btn-danger btn-sm" onClick={props.clearFavorites}> Clear Favorites</button>
         </div>
     )
 }
