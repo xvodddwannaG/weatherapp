@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 
 export const Form = (props) => {
 
     const [inputCity, setInputCity] = useState('');
-    
+
     let formValid = 'form-control'
 
     const submitForm = (event) => {
@@ -13,7 +13,7 @@ export const Form = (props) => {
     }
 
     return (
-        <form onSubmit={submitForm}>
+        <form onSubmit={submitForm} >
             <input type="text" className={formValid + ' ' + props.inputValid}
                 placeholder="city"
                 onChange={(event) => setInputCity(event.target.value)}

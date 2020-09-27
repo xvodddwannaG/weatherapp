@@ -4,32 +4,15 @@ import axios from 'axios'
 import { Favorites } from './components/Favorites';
 import { Card } from './components/Card/Card'
 import { Form } from './components/Form/Form'
+import {addFavorites, favoritesStorage} from './utils/localstorage'
 
 function App() {
 
   const API = '9f35c9f77e6ec0ef94c0fdf3ff482571'
 
-
   const [mainTemp, setMainTemp] = useState('');
   const [inputValid, setInputValid] = useState('');
   const [validCity, setValidCity] = useState('');
-  const [fav, setFav] = useState('')
-
-  let favorites;
-  if (JSON.parse(localStorage.getItem('favorites')) === null) {
-    favorites = []
-    localStorage.setItem('favorites', JSON.stringify(favorites))
-  } else {
-    favorites = JSON.parse(localStorage.getItem('favorites'))
-  }
-
-  const addFavorites = () => {
-    document.querySelector('.add').setAttribute('disabled', 'disabled')
-    favorites.push(validCity)
-    localStorage.setItem('favorites', JSON.stringify(favorites))
-    setFav(favorites)
-  }
-
 
   const fetchData = async (inputCity) => {
     try {
@@ -44,12 +27,11 @@ function App() {
     }
   }
 
-
   return (
     <div className="App">
       <Form fetchApi={fetchData} inputValid={inputValid} />
       <Card temp={mainTemp} city={validCity} />
-      <Favorites city={validCity} inputValid={inputValid} addFavorites={addFavorites} favorites={favorites} fetchApi={fetchData}/>
+      <Favorites city={validCity} inputValid={inputValid} addFavorites={addFavorites} favorites={favoritesStorage} fetchApi={fetchData} />
     </div>
   );
 }

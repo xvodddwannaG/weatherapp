@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './favorites.css'
 
 
 
 export const Favorites = (props) => {
+    const [fav, setFav] = useState('')
 
     useEffect(() => {
         document.querySelector('.add').setAttribute('disabled', 'disabled')
@@ -22,7 +23,10 @@ export const Favorites = (props) => {
 
     return (
         <div>
-            <button className="btn btn-success btn-sm add" onClick={props.addFavorites} > Add city to Favorites</button>
+            <button className="btn btn-success btn-sm add" onClick={() => {
+                props.addFavorites(props.city)
+                setFav(props.favorites)
+            }} > Add city to Favorites</button>
             <div className="favorites">
                 Favorites:
                 <br />
