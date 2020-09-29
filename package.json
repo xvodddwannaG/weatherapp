@@ -18,7 +18,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "plugin:react/recommended",
+      "airbnb"
+    ]
   },
   "browserslist": {
     "production": [
