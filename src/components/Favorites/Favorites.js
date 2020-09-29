@@ -2,7 +2,7 @@ import React from 'react';
 import './favorites.css';
 
 export const Favorites = ({
-  favoritesList, getWeather
+  favoritesList, getWeather,
 }) => {
   // Назвать функцию, которую используем в роли обработчика события можем 2-мя способами
   // например: buttonOnClick
@@ -11,7 +11,6 @@ export const Favorites = ({
     e.preventDefault();
     getWeather(e.target.dataset.item);
   };
-
 
   return (
     <div>
