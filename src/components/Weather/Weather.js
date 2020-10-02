@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Form } from '../Form/Form';
-import { Card } from '../Card/Card';
-import { Favorites } from '../Favorites/Favorites';
+import Form from '../Form/Form';
+import Card from '../Card/Card';
+import Favorites from '../Favorites/Favorites';
 
-export const Weather = () => {
+const Weather = () => {
   const API = '9f35c9f77e6ec0ef94c0fdf3ff482571';
   const [mainTemp, setMainTemp] = useState('');
   const [isCityNameValid, setIsCityNameValid] = useState('');
@@ -14,11 +14,10 @@ export const Weather = () => {
     // ????
     const previousRequest = JSON.parse(localStorage.getItem('history'));
     if (previousRequest !== null) {
-      setCityName(previousRequest.city)
-      setMainTemp(previousRequest.temp)
+      setCityName(previousRequest.city);
+      setMainTemp(previousRequest.temp);
     }
-  }, [])
-
+  }, []);
 
   const getFavorites = () => {
     if (JSON.parse(localStorage.getItem('favorites')) === null) {
@@ -34,13 +33,12 @@ export const Weather = () => {
     // ????
     const previousRequest = JSON.parse(localStorage.getItem('history'));
     if (previousRequest !== null && favorites.includes(previousRequest.city)) {
-      return true
+      return true;
     }
     return false;
   };
 
   const [isFavoriteCity, setIsFavoriteCity] = useState(isFavoriteCityInHistory());
-
 
   const addToFavorites = (city) => {
     if (favorites.includes(city)) {
@@ -68,7 +66,7 @@ export const Weather = () => {
     try {
       const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${API}&units=metric`);
       const { data: { name, main: { temp } } } = response;
-      const roundTemp = Math.round(temp)
+      const roundTemp = Math.round(temp);
       setMainTemp(roundTemp);
       setIsCityNameValid(true);
       setCityName(name);
@@ -100,3 +98,5 @@ export const Weather = () => {
     </div>
   );
 };
+
+export default Weather;

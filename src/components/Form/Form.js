@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const Form = ({ getWeather, isCityNameValid }) => {
+const Form = ({ getWeather, isCityNameValid }) => {
   const [inputCity, setInputCity] = useState('');
 
   const submitFormHandler = (event) => {
@@ -8,21 +8,14 @@ export const Form = ({ getWeather, isCityNameValid }) => {
     getWeather(inputCity);
   };
 
-  // let inputClass = 'form-control';
-  // if (isCityNameValid === true) {
-  //   inputClass = 'form-control is-valid';
-  // } else if (isCityNameValid === false) {
-  //   inputClass = 'form-control is-invalid';
-  // }
-
   function getInputClass() {
     if (isCityNameValid === true) {
       return 'is-valid';
-    } else if (isCityNameValid === false) {
+    } if (isCityNameValid === false) {
       return 'is-invalid';
     }
     return null;
-  };
+  }
 
   return (
     <form onSubmit={submitFormHandler}>
@@ -36,3 +29,5 @@ export const Form = ({ getWeather, isCityNameValid }) => {
     </form>
   );
 };
+
+export default Form;

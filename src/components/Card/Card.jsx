@@ -1,16 +1,15 @@
 import React from 'react';
 
-export const Card = ({
+const Card = ({
   temp, city, addToFavorites, isFavoriteCity, deleteFavorites,
 }) => {
-
   const changeFavoriteButtonHandler = () => {
     if (isFavoriteCity === true) {
-      deleteFavorites(city)
+      deleteFavorites(city);
     } else if (isFavoriteCity === false && city !== '') {
-      addToFavorites(city)
+      addToFavorites(city);
     }
-  }
+  };
 
   return (
     <div className="card">
@@ -22,10 +21,14 @@ export const Card = ({
 
         <button
           className={`btn btn-sm ${isFavoriteCity ? 'btn-danger' : 'btn-success'}`}
-          type="button" onClick={() => { changeFavoriteButtonHandler() }}>
+          type="button"
+          onClick={() => { changeFavoriteButtonHandler(); }}
+        >
           {isFavoriteCity ? 'Remove from Favorites' : 'Add city to Favorites'}
         </button>
       </div>
     </div>
   );
 };
+
+export default Card;
