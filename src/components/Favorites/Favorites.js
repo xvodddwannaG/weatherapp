@@ -7,7 +7,7 @@ export const Favorites = ({
   // Назвать функцию, которую используем в роли обработчика события можем 2-мя способами
   // например: buttonOnClick
   // или buttonClickHandler
-  const buttonClickHandler = (e) => {
+  const favoriteButtonClickHandler = (e) => {
     e.preventDefault();
     getWeather(e.target.dataset.item);
   };
@@ -17,10 +17,10 @@ export const Favorites = ({
       <div className="favorites">
         Favorites List:
         <br />
-        {favoritesList === []
+        {favoritesList.length === 0
           ? 'Empty'
           : favoritesList.map((item, index) => (
-            <button className="btn btn-primary" type="button" data-item={item} key={index} onClick={buttonClickHandler}>{item}</button>
+            <button className="btn btn-primary" type="button" data-item={item} key={index} onClick={favoriteButtonClickHandler}>{item}</button>
           ))}
       </div>
     </div>

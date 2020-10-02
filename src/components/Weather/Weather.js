@@ -1,76 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form } from '../Form/Form';
 import { Card } from '../Card/Card';
 import { Favorites } from '../Favorites/Favorites';
-import { initLocalStorage } from '../../utils/localstorage';
 
 export const Weather = () => {
-  // localStorage and favorites
-  const [favorites, setFavorites] = useState(initLocalStorage());
-
-  const initHistoryRequest = () => {
-    const history = JSON.parse(localStorage.getItem('history'));
-    if (history !== null) {
-      if (favorites.includes(history.city)) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-
-  const [isIncludeInFavorite, setIsIncludeInFavorite] = useState(initHistoryRequest());
-
-  const addToFavorites = (city) => {
-    if (favorites.includes(city)) {
-      setIsIncludeInFavorite(true);
-    } else {
-      const fav = favorites;
-      fav.push(city);
-      setFavorites(fav);
-      localStorage.setItem('favorites', JSON.stringify(fav));
-      setIsIncludeInFavorite(true);
-    }
-  };
-
-  const deleteFavorites = (city) => {
-    let fav = favorites;
-    fav = fav.filter((item) => item !== city);
-    setIsIncludeInFavorite(false);
-    setFavorites(fav);
-    localStorage.setItem('favorites', JSON.stringify(fav));
-  };
-
-  // end
-
   const API = '9f35c9f77e6ec0ef94c0fdf3ff482571';
-
   const [mainTemp, setMainTemp] = useState('');
   const [isCityNameValid, setIsCityNameValid] = useState('');
   const [cityName, setCityName] = useState('');
 
-  const tempToCelsius = (temp) => Math.round(temp - 273);
+  useEffect(() => {
+    // ????
+    const previousRequest = JSON.parse(localStorage.getItem('history'));
+    if (previousRequest !== null) {
+      setCityName(previousRequest.city)
+      setMainTemp(previousRequest.temp)
+    }
+  }, [])
+
+
+  const getFavorites = () => {
+    if (JSON.parse(localStorage.getItem('favorites')) === null) {
+      localStorage.setItem('favorites', JSON.stringify([]));
+      return [];
+    }
+    return JSON.parse(localStorage.getItem('favorites'));
+  };
+
+  const [favorites, setFavorites] = useState(getFavorites());
+
+  const isFavoriteCityInHistory = () => {
+    // ????
+    const previousRequest = JSON.parse(localStorage.getItem('history'));
+    if (previousRequest !== null && favorites.includes(previousRequest.city)) {
+      return true
+    }
+    return false;
+  };
+
+  const [isFavoriteCity, setIsFavoriteCity] = useState(isFavoriteCityInHistory());
+
+
+  const addToFavorites = (city) => {
+    if (favorites.includes(city)) {
+      setIsFavoriteCity(true);
+    } else {
+      const newFavorites = favorites.slice();
+      newFavorites.push(city);
+      setFavorites(newFavorites);
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+      setIsFavoriteCity(true);
+    }
+  };
+
+  const deleteFavorites = (city) => {
+    let newFavorites = favorites.slice();
+    newFavorites = newFavorites.filter((item) => item !== city);
+    setIsFavoriteCity(false);
+    setFavorites(newFavorites);
+    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+  };
+
+  // end
+
   const getWeather = async (inputCity) => {
     try {
-      const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${API}`);
+      const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${API}&units=metric`);
       const { data: { name, main: { temp } } } = response;
-      setMainTemp(tempToCelsius(temp));
+      const roundTemp = Math.round(temp)
+      setMainTemp(roundTemp);
       setIsCityNameValid(true);
       setCityName(name);
-      localStorage.setItem('history', JSON.stringify({ city: name, temp: tempToCelsius(temp) }));
-
+      localStorage.setItem('history', JSON.stringify({ city: name, temp: roundTemp }));
       if (favorites.includes(name)) {
-        setIsIncludeInFavorite(true);
+        setIsFavoriteCity(true);
       } else {
-        setIsIncludeInFavorite(false);
+        setIsFavoriteCity(false);
       }
     } catch (error) {
       setIsCityNameValid(false);
     }
   };
-
-  // {city
 
   return (
     <div className="weather">
@@ -79,12 +90,10 @@ export const Weather = () => {
         temp={mainTemp}
         city={cityName}
         addToFavorites={addToFavorites}
-        favorites={favorites}
-        isIncludeInFavorite={isIncludeInFavorite}
+        isFavoriteCity={isFavoriteCity}
         deleteFavorites={deleteFavorites}
       />
       <Favorites
-        city={cityName}
         getWeather={getWeather}
         favoritesList={favorites}
       />

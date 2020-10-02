@@ -1,83 +1,30 @@
 import React from 'react';
 
 export const Card = ({
-  temp, city, addToFavorites, isIncludeInFavorite, deleteFavorites,
+  temp, city, addToFavorites, isFavoriteCity, deleteFavorites,
 }) => {
-  let previousRequest;
-  let button;
 
-  const history = JSON.parse(localStorage.getItem('history'));
-  if (history !== null) {
-    previousRequest = JSON.parse(localStorage.getItem('history'));
-  } else {
-    previousRequest = { city: '', temp: '' };
-  }
-
-  const buttonAddFavoriteClickHandler = (city) => {
-    if (city !== '') {
-      addToFavorites(city);
-    } else if (previousRequest.city !== '') {
-      addToFavorites(previousRequest.city);
+  const changeFavoriteButtonHandler = () => {
+    if (isFavoriteCity === true) {
+      deleteFavorites(city)
+    } else if (isFavoriteCity === false && city !== '') {
+      addToFavorites(city)
     }
-  };
-
-  const buttonDeliteFavoriteClickHandler = (city) => {
-    if (city !== '') {
-      deleteFavorites(city);
-    } else if (previousRequest.city !== '') {
-      deleteFavorites(previousRequest.city);
-    }
-  };
-
-  if (isIncludeInFavorite === true) {
-    button = (
-      <button
-        className="btn btn-danger btn-sm"
-        type="button"
-        onClick={() => buttonDeliteFavoriteClickHandler(city)}
-      >
-        Remove from Favorites
-      </button>
-    );
-  } else {
-    button = (
-      <button
-        className="btn btn-success btn-sm"
-        type="button"
-        onClick={() => buttonAddFavoriteClickHandler(city)}
-      >
-        Add city to Favorites
-      </button>
-    );
   }
-
-  const card = city && temp !== ''
-    ? (
-      <div className="card">
-        City:
-        {' '}
-        {city}
-        , Temp:
-        {' '}
-        {temp}
-      </div>
-    )
-    : (
-      <div className="card">
-        City:
-        {' '}
-        {previousRequest.city}
-        , Temp:
-        {' '}
-        {previousRequest.temp}
-      </div>
-    );
 
   return (
     <div className="card">
       <div className="card-body">
-        {card}
-        {button}
+        <div className="card">
+          City: {city},
+          Temp: {temp}
+        </div>
+
+        <button
+          className={`btn btn-sm ${isFavoriteCity ? 'btn-danger' : 'btn-success'}`}
+          type="button" onClick={() => { changeFavoriteButtonHandler() }}>
+          {isFavoriteCity ? 'Remove from Favorites' : 'Add city to Favorites'}
+        </button>
       </div>
     </div>
   );
