@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const Card = ({
@@ -30,5 +31,13 @@ const Card = ({
     </div>
   );
 };
+
+Card.propTypes = {
+  temp: PropTypes.any,
+  city: PropTypes.string,
+  addToFavorites: PropTypes.func,
+  deleteFavorites: PropTypes.func,
+  isFavoriteCity: PropTypes.bool
+}
 
 export default Card;

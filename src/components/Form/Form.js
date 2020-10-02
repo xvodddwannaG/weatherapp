@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 const Form = ({ getWeather, isCityNameValid }) => {
@@ -29,5 +30,10 @@ const Form = ({ getWeather, isCityNameValid }) => {
     </form>
   );
 };
+
+Form.propTypes = {
+  getWeather: PropTypes.func,
+  isCityNameValid: PropTypes.any
+}
 
 export default Form;

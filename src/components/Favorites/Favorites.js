@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import './favorites.css';
 
@@ -26,5 +27,11 @@ const Favorites = ({
     </div>
   );
 };
+
+Favorites.propTypes = {
+  favoritesList: PropTypes.array,
+  getWeather: PropTypes.func
+}
+
 
 export default Favorites;
