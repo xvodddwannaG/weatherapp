@@ -1,9 +1,8 @@
 import React from 'react';
 import './App.css';
-import Weather from './components/Weather/Weather';
 import { Provider } from 'react-redux';
-import {store} from './redux/index'
-
+import Weather from './components/Weather/Weather';
+import { store } from './redux/index';
 
 function App() {
   return (

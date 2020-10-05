@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getWeather } from '../../redux/index'
+import { getWeather } from '../../redux/index';
 
 const Form = () => {
   const [inputCity, setInputCity] = useState('');
 
-  const dispatch = useDispatch()
-  const isCityNameValid = useSelector(state => state.isCityNameValid)
+  const dispatch = useDispatch();
+  const isCityNameValid = useSelector((state) => state.isCityNameValid);
 
   const submitFormHandler = (event) => {
     event.preventDefault();
-    dispatch(getWeather(inputCity))
+    dispatch(getWeather(inputCity));
   };
-
 
   function getInputClass() {
     if (isCityNameValid === true) {
