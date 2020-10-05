@@ -1,16 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { getWeather } from '../../redux/index'
+import { useDispatch } from 'react-redux';
 import './favorites.css';
 
 const Favorites = ({
-  favoritesList, getWeather,
+  favoritesList,
 }) => {
+
+  const dispatch = useDispatch()
   // Назвать функцию, которую используем в роли обработчика события можем 2-мя способами
   // например: buttonOnClick
   // или buttonClickHandler
+
   const favoriteButtonClickHandler = (e) => {
     e.preventDefault();
-    getWeather(e.target.dataset.item);
+    dispatch(getWeather(e.target.dataset.item))
   };
 
   return (
