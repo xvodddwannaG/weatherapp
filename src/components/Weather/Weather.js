@@ -12,52 +12,21 @@ const Weather = () => {
 
   useEffect(() => {
     const previousRequest = JSON.parse(localStorage.getItem('history'));
-    if (previousRequest !== null) {
+    if (previousRequest) {
       dispatch(setCardData(previousRequest.city, previousRequest.temp));
     }
 
-    if (JSON.parse(localStorage.getItem('favorites')) === null) {
-      localStorage.setItem('favorites', JSON.stringify([]));
-      dispatch(setFavoritsList([]));
-    } else {
-      const favoritsList = JSON.parse(localStorage.getItem('favorites'));
-      dispatch(setFavoritsList(favoritsList));
-    }
+    const favoritsList = JSON.parse(localStorage.getItem('favorites')) || [];
+    dispatch(setFavoritsList(favoritsList));
 
-    if (previousRequest !== null && favoritesListRedux.includes(previousRequest.city)) {
-      dispatch(setIsFavoriteCity(true));
-    } else {
-      dispatch(setIsFavoriteCity(false));
-    }
+    const isFavoriteCityEffect = previousRequest !== null && favoritesListRedux.includes(previousRequest.city);
+    dispatch(setIsFavoriteCity(isFavoriteCityEffect));
   }, [isFavoriteCity]);
-
-  const addToFavorites = (city) => {
-    if (favoritesListRedux.includes(city)) {
-      dispatch(setIsFavoriteCity(false));
-    } else {
-      const newFavoritesListRedux = favoritesListRedux.slice();
-      newFavoritesListRedux.push(city);
-      dispatch(setFavoritsList(newFavoritesListRedux));
-      dispatch(setIsFavoriteCity(true));
-      localStorage.setItem('favorites', JSON.stringify(newFavoritesListRedux));
-    }
-  };
-
-  const deleteFavorites = (city) => {
-    const newFavoritesListRedux = favoritesListRedux.filter((item) => item !== city);
-    dispatch(setIsFavoriteCity(false));
-    dispatch(setFavoritsList(newFavoritesListRedux));
-    localStorage.setItem('favorites', JSON.stringify(newFavoritesListRedux));
-  };
 
   return (
     <div className="weather">
       <Form />
-      <Card
-        addToFavorites={addToFavorites}
-        isFavoriteCity={isFavoriteCity}
-        deleteFavorites={deleteFavorites}
-      />
+      <Card/>
       <Favorites
         favoritesList={favoritesListRedux}
       />

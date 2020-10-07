@@ -24,7 +24,7 @@ const rootReducer = (state = initialState, action) => {
           city: action.city,
           temp: action.temp,
         },
-        isCityNameValid: action.isCityNameValid,
+        isCityNameValid: action.isCityNameValid || state.isCityNameValid,
       };
     case FETCHING_ERROR:
       return {
@@ -37,8 +37,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         favoritsList: action.favoritsList,
       };
-    default:
-      return state;
     case SET_IS_FAVORITE_CITY:
       return {
         ...state,
@@ -47,6 +45,8 @@ const rootReducer = (state = initialState, action) => {
           isFavoriteCity: action.payload,
         },
       };
+    default:
+      return state;
   }
 };
 
