@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getWeather } from '../../redux/applyMiddleware';
 import classNames from 'classnames';
+import { getWeather } from '../../redux/applyMiddleware';
 
 const Form = () => {
   const [inputCity, setInputCity] = useState('');
@@ -14,11 +14,11 @@ const Form = () => {
     dispatch(getWeather(inputCity));
   };
 
-  let inputClass = classNames({
+  const inputClass = classNames({
     'form-control': true,
     'is-valid': isCityNameValid,
     'is-invalid': isCityNameValid === false,
-  })
+  });
 
   return (
     <form onSubmit={submitFormHandler}>

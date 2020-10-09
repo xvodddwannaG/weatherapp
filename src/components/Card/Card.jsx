@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFavoritsList, setIsFavoriteCity } from '../../redux/actionCreator';
-import { favoritesListReduxFunc, isFavoriteCityRedux, dataRedux } from '../../redux/selectors'
+import { favoritesListReduxFunc, isFavoriteCityRedux, dataRedux } from '../../redux/selectors';
 
 const Card = () => {
   const dispatch = useDispatch();
@@ -10,29 +10,28 @@ const Card = () => {
   const favoritesListRedux = useSelector((state) => favoritesListReduxFunc(state));
   const changeFavoriteButtonHandler = () => {
     if (isFavoriteCity) {
-      deleteFavorites(data.city)
+      deleteFavorites(data.city);
     } else {
       addToFavorites(data.city);
     }
   };
 
   const addToFavorites = (city) => {
-    if (favoritesListRedux.includes(city)) {
+    if (favoritesListRedux.has(city)) {
       dispatch(setIsFavoriteCity(false));
     } else {
-      const newFavoritesListRedux = favoritesListRedux.slice();
-      newFavoritesListRedux.push(city);
-      dispatch(setFavoritsList(newFavoritesListRedux));
+      favoritesListRedux.add(city);
+      dispatch(setFavoritsList(favoritesListRedux));
       dispatch(setIsFavoriteCity(true));
-      localStorage.setItem('favorites', JSON.stringify(newFavoritesListRedux));
+      localStorage.setItem('favorites', JSON.stringify([...favoritesListRedux]));
     }
   };
 
   const deleteFavorites = (city) => {
-    const newFavoritesListRedux = favoritesListRedux.filter((item) => item !== city);
+    favoritesListRedux.delete(city);
     dispatch(setIsFavoriteCity(false));
-    dispatch(setFavoritsList(newFavoritesListRedux));
-    localStorage.setItem('favorites', JSON.stringify(newFavoritesListRedux));
+    dispatch(setFavoritsList(favoritesListRedux));
+    localStorage.setItem('favorites', JSON.stringify([...favoritesListRedux]));
   };
 
   if (!data.city) {

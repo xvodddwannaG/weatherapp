@@ -1,8 +1,9 @@
-import { SET_CARD_DATA, FETCHING_ERROR, SET_FAVORITES_LIST, SET_IS_FAVORITE_CITY } from './actionType';
 import { combineReducers } from 'redux';
+import {
+  SET_CARD_DATA, FETCHING_ERROR, SET_FAVORITES_LIST, SET_IS_FAVORITE_CITY,
+} from './actionType';
 
-const initialStateCardData = { data: {}};
-
+const initialStateCardData = { data: {} };
 
 const cardData = (state = initialStateCardData, action) => {
   switch (action.type) {
@@ -34,16 +35,16 @@ const cardData = (state = initialStateCardData, action) => {
   }
 };
 
-const favoritesList = (state = [], action) => {
+const favoritesList = (state = new Set([]), action) => {
   switch (action.type) {
     case SET_FAVORITES_LIST:
-      return action.favoritsList || state
+      return action.favoritsList || state;
     default:
       return state;
   }
-}
+};
 
 export const rootReducer = combineReducers({
   cardData,
-  favoritesList
-})
+  favoritesList,
+});

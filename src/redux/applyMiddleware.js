@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {setCardData, errorHandler} from './actionCreator';
+import { setCardData, errorHandler } from './actionCreator';
 
 const API = '9f35c9f77e6ec0ef94c0fdf3ff482571';
 

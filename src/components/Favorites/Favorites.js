@@ -7,18 +7,26 @@ const Favorites = ({
   favoritesList,
 }) => {
   const dispatch = useDispatch();
+  const favoritesListArray = [...favoritesList];
+
   return (
     <div>
       <div className="favorites">
         Favorites List:
         <br />
-        {favoritesList.length === 0
+        {favoritesListArray.length === 0
           ? 'Empty'
-          : favoritesList.map((item, index) => (
-            <button className="btn btn-primary" type="button" data-item={item} key={index} onClick={(event) => {
-              event.preventDefault();
-              dispatch(getWeather(item))
-            }}>
+          : favoritesListArray.map((item, index) => (
+            <button
+              className="btn btn-primary"
+              type="button"
+              data-item={item}
+              key={index}
+              onClick={(event) => {
+                event.preventDefault();
+                dispatch(getWeather(item));
+              }}
+            >
               {item}
             </button>
           ))}

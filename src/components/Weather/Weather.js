@@ -4,11 +4,11 @@ import Form from '../Form/Form';
 import Card from '../Card/Card';
 import Favorites from '../Favorites/Favorites';
 import { setCardData, setFavoritsList, setIsFavoriteCity } from '../../redux/actionCreator';
-import { favoritesListReduxFunc, isFavoriteCityRedux} from '../../redux/selectors'
+import { favoritesListReduxFunc, isFavoriteCityRedux } from '../../redux/selectors';
 
 const Weather = () => {
   const dispatch = useDispatch();
-  const favoritesListRedux = useSelector((state) => favoritesListReduxFunc(state))
+  const favoritesListRedux = useSelector((state) => favoritesListReduxFunc(state));
   const isFavoriteCity = useSelector((state) => isFavoriteCityRedux(state));
 
   useEffect(() => {
@@ -17,10 +17,10 @@ const Weather = () => {
       dispatch(setCardData(previousRequest.city, previousRequest.temp));
     }
 
-    const favoritsList = JSON.parse(localStorage.getItem('favorites')) || [];
+    const favoritsList = new Set(JSON.parse(localStorage.getItem('favorites'))) || new Set([]);
     dispatch(setFavoritsList(favoritsList));
 
-    const isFavoriteCityEffect = previousRequest !== null && favoritesListRedux.includes(previousRequest.city);
+    const isFavoriteCityEffect = previousRequest !== null && favoritesListRedux.has(previousRequest.city);
     dispatch(setIsFavoriteCity(isFavoriteCityEffect));
   }, [isFavoriteCity]);
 

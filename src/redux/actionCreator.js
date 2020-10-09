@@ -1,4 +1,6 @@
-import {SET_CARD_DATA, FETCHING_ERROR, SET_FAVORITES_LIST, SET_IS_FAVORITE_CITY} from './actionType';
+import {
+  SET_CARD_DATA, FETCHING_ERROR, SET_FAVORITES_LIST, SET_IS_FAVORITE_CITY,
+} from './actionType';
 
 // Actions Creators
 
