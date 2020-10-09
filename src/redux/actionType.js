@@ -1,0 +1,5 @@
+// actions type
+export const SET_CARD_DATA = 'SET_CARD_DATA';
+export const FETCHING_ERROR = 'FETCHING_ERROR';
+export const SET_FAVORITES_LIST = 'SET_FAVORITES_LIST';
+export const SET_IS_FAVORITE_CITY = 'SET_IS_FAVORITE_CITY';

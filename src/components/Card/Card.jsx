@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFavoritsList, setIsFavoriteCity } from '../../redux/index';
+import { setFavoritsList, setIsFavoriteCity } from '../../redux/actionCreator';
+import { favoritesListReduxFunc, isFavoriteCityRedux, dataRedux } from '../../redux/selectors'
 
 const Card = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.data);
-  const isFavoriteCity = useSelector((state) => state.data.isFavoriteCity);
-  const favoritesListRedux = useSelector((state) => state.favoritsList);
-
+  const data = useSelector((state) => dataRedux(state));
+  const isFavoriteCity = useSelector((state) => isFavoriteCityRedux(state));
+  const favoritesListRedux = useSelector((state) => favoritesListReduxFunc(state));
   const changeFavoriteButtonHandler = () => {
     if (isFavoriteCity) {
       deleteFavorites(data.city)

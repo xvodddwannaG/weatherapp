@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getWeather } from '../../redux/index';
+import { getWeather } from '../../redux/applyMiddleware';
 import classNames from 'classnames';
 
 const Form = () => {

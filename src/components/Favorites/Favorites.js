@@ -1,13 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { getWeather } from '../../redux/index';
+import { getWeather } from '../../redux/applyMiddleware';
 import './favorites.css';
 
 const Favorites = ({
   favoritesList,
 }) => {
   const dispatch = useDispatch();
-
   return (
     <div>
       <div className="favorites">

@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Form from '../Form/Form';
 import Card from '../Card/Card';
 import Favorites from '../Favorites/Favorites';
-import { setCardData, setFavoritsList, setIsFavoriteCity } from '../../redux/index';
+import { setCardData, setFavoritsList, setIsFavoriteCity } from '../../redux/actionCreator';
+import { favoritesListReduxFunc, isFavoriteCityRedux} from '../../redux/selectors'
 
 const Weather = () => {
   const dispatch = useDispatch();
-  const favoritesListRedux = useSelector((state) => state.favoritsList);
-  const isFavoriteCity = useSelector((state) => state.data.isFavoriteCity);
+  const favoritesListRedux = useSelector((state) => favoritesListReduxFunc(state))
+  const isFavoriteCity = useSelector((state) => isFavoriteCityRedux(state));
 
   useEffect(() => {
     const previousRequest = JSON.parse(localStorage.getItem('history'));
@@ -26,7 +27,7 @@ const Weather = () => {
   return (
     <div className="weather">
       <Form />
-      <Card/>
+      <Card />
       <Favorites
         favoritesList={favoritesListRedux}
       />
