@@ -1,28 +1,31 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
+import { getWeather } from '../../redux/applyMiddleware';
+import { useIsCityNameValid } from '../../redux/selectors'
 
-const Form = ({ getWeather, isCityNameValid }) => {
+const Form = () => {
   const [inputCity, setInputCity] = useState('');
+
+  const dispatch = useDispatch();
+  const isCityNameValid = useIsCityNameValid()
 
   const submitFormHandler = (event) => {
     event.preventDefault();
-    getWeather(inputCity);
+    dispatch(getWeather(inputCity));
   };
 
-  function getInputClass() {
-    if (isCityNameValid === true) {
-      return 'is-valid';
-    } if (isCityNameValid === false) {
-      return 'is-invalid';
-    }
-    return null;
-  }
+  const inputClass = classNames({
+    'form-control': true,
+    'is-valid': isCityNameValid,
+    'is-invalid': isCityNameValid === false,
+  });
 
   return (
     <form onSubmit={submitFormHandler}>
       <input
         type="text"
-        className={`form-control ${getInputClass()}`}
+        className={inputClass}
         placeholder="city"
         onChange={(event) => setInputCity(event.target.value)}
         value={inputCity}
@@ -30,10 +33,5 @@ const Form = ({ getWeather, isCityNameValid }) => {
     </form>
   );
 };
-
-Form.propTypes = {
-  getWeather: PropTypes.func,
-  isCityNameValid: PropTypes.any
-}
 
 export default Form;

@@ -1,16 +1,30 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setFavoritsList, setIsFavoriteCity } from '../../redux/actionCreator';
+import { useFavoritesList, useIsFavoriteCity, useData } from '../../redux/selectors';
 
-const Card = ({
-  temp, city, addToFavorites, isFavoriteCity, deleteFavorites,
-}) => {
-  const changeFavoriteButtonHandler = () => {
-    if (isFavoriteCity === true) {
-      deleteFavorites(city);
-    } else if (isFavoriteCity === false && city !== '') {
-      addToFavorites(city);
-    }
+const Card = () => {
+  const dispatch = useDispatch();
+  const { city, temp } = useData();
+  const isFavoriteCity = useIsFavoriteCity();
+  const favoritesListRedux = useFavoritesList();
+
+  const favoriteButtonHandler = () => {
+    const newFavoritesList = new Set([...favoritesListRedux]);
+    if (isFavoriteCity) {
+      newFavoritesList.delete(city);
+      dispatch(setIsFavoriteCity(false));
+    } else {
+      newFavoritesList.add(city);
+      dispatch(setIsFavoriteCity(true));
+    };
+    dispatch(setFavoritsList(newFavoritesList));
+    localStorage.setItem('favorites', JSON.stringify([...newFavoritesList]));
   };
+
+  if (!city) {
+    return null;
+  }
 
   return (
     <div className="card">
@@ -19,11 +33,10 @@ const Card = ({
           City: {city},
           Temp: {temp}
         </div>
-
         <button
           className={`btn btn-sm ${isFavoriteCity ? 'btn-danger' : 'btn-success'}`}
           type="button"
-          onClick={() => { changeFavoriteButtonHandler(); }}
+          onClick={favoriteButtonHandler}
         >
           {isFavoriteCity ? 'Remove from Favorites' : 'Add city to Favorites'}
         </button>
@@ -31,13 +44,5 @@ const Card = ({
     </div>
   );
 };
-
-Card.propTypes = {
-  temp: PropTypes.any,
-  city: PropTypes.string,
-  addToFavorites: PropTypes.func,
-  deleteFavorites: PropTypes.func,
-  isFavoriteCity: PropTypes.bool
-}
 
 export default Card;
