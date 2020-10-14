@@ -20,7 +20,7 @@ export const errorHandler = (error: any) => ({
   error,
 });
 
-export const setFavoritsList = (favoritsList: any) => ({
+export const setFavoritsList = (favoritsList: Set<any>) => ({
   type: SET_FAVORITES_LIST,
   favoritsList,
 });

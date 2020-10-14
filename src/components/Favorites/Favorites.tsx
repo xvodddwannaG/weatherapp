@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { getWeather } from '../../redux/applyMiddleware';
 import './favorites.css';
 
-const Favorites: React.FC = ({
+const Favorites = ({
   favoritesList,
-}) => {
+}:PropType) => {
   const dispatch = useDispatch();
   const favoritesListArray = [...favoritesList];
 
@@ -34,5 +34,7 @@ const Favorites: React.FC = ({
     </div>
   );
 };
+
+type PropType = { favoritesList: Set<string> }
 
 export default Favorites;

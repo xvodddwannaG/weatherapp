@@ -12,12 +12,12 @@ const Weather = () => {
   const isFavoriteCity = useIsFavoriteCity();
 
   useEffect(() => {
-    const previousRequest = JSON.parse(localStorage.getItem('history'));
+    const previousRequest = JSON.parse(localStorage.getItem('history')!);
     if (previousRequest) {
       dispatch(setCardData(previousRequest.city, previousRequest.temp));
     }
 
-    const favoritsList = new Set(JSON.parse(localStorage.getItem('favorites')));
+    const favoritsList = new Set(JSON.parse(localStorage.getItem('favorites')!));
     dispatch(setFavoritsList(favoritsList));
 
     const isFavoriteCityEffect = previousRequest && favoritesListRedux.has(previousRequest.city);

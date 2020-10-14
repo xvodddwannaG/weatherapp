@@ -5,7 +5,7 @@ import {
 
 const initialStateCardData = { data: {} };
 
-const cardData = (state = initialStateCardData, action: CardDataActionType) => {
+const cardData = (state: typeof initialStateCardData = initialStateCardData, action: CardDataActionType) => {
   switch (action.type) {
     case SET_CARD_DATA:
       return {
