@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react'
 import { useDispatch } from 'react-redux';
 import { getWeather } from '../../redux/applyMiddleware';
 import './favorites.css';
 
-const Favorites = ({
+const Favorites: React.FC = ({
   favoritesList,
 }) => {
   const dispatch = useDispatch();

@@ -4,30 +4,28 @@ import {
 
 // Actions Creators
 
-export const setIsFavoriteCity = (payload) => ({
+export const setIsFavoriteCity = (payload: boolean) => ({
   type: SET_IS_FAVORITE_CITY,
   payload,
 });
 
-export const setCardData = (city, temp, isCityNameValid) => ({
+export const setCardData = (city: string, temp: number) => ({
   type: SET_CARD_DATA,
   city,
   temp,
-  isCityNameValid,
 });
 
-export const errorHandler = (error, isCityNameValid) => ({
+export const errorHandler = (error: any) => ({
   type: FETCHING_ERROR,
   error,
-  isCityNameValid,
 });
 
-export const setFavoritsList = (favoritsList) => ({
+export const setFavoritsList = (favoritsList: any) => ({
   type: SET_FAVORITES_LIST,
   favoritsList,
 });
 
-export const setIsCityNameValid = (payload) => ({
+export const setIsCityNameValid = (payload: boolean) => ({
   type: IS_CITY_NAME_VALID,
   payload,
 });

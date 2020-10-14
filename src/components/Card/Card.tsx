@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react'
 import { useDispatch } from 'react-redux';
 import { setFavoritsList, setIsFavoriteCity } from '../../redux/actionCreator';
 import { useFavoritesList, useIsFavoriteCity, useData } from '../../redux/selectors';
@@ -17,7 +17,7 @@ const Card = () => {
     } else {
       newFavoritesList.add(city);
       dispatch(setIsFavoriteCity(true));
-    };
+    }
     dispatch(setFavoritsList(newFavoritesList));
     localStorage.setItem('favorites', JSON.stringify([...newFavoritesList]));
   };

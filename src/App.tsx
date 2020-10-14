@@ -1,10 +1,9 @@
-import React from 'react';
-import './App.css';
+import * as React from 'react'
 import { Provider } from 'react-redux';
 import Weather from './components/Weather/Weather';
-import { store } from './redux/index';
+import { store } from './redux';
 
-function App() {
+const App: React.FC = () => {
   return (
     <Provider store={store}>
       <div className="App">

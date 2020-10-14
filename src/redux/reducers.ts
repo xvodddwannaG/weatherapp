@@ -5,7 +5,7 @@ import {
 
 const initialStateCardData = { data: {} };
 
-const cardData = (state = initialStateCardData, action) => {
+const cardData = (state = initialStateCardData, action: CardDataActionType) => {
   switch (action.type) {
     case SET_CARD_DATA:
       return {
@@ -38,7 +38,7 @@ const cardData = (state = initialStateCardData, action) => {
   }
 };
 
-const favoritesList = (state = new Set(), action) => {
+const favoritesList = (state = new Set(), action: FavoritesListActionType) => {
   switch (action.type) {
     case SET_FAVORITES_LIST:
       return action.favoritsList || state;
@@ -51,3 +51,16 @@ export const rootReducer = combineReducers({
   cardData,
   favoritesList,
 });
+
+type FavoritesListActionType = {
+  type: string,
+  favoritsList?: Set<any>,
+}
+
+type CardDataActionType = {
+  type: string,
+  city?: string,
+  temp?: number,
+  payload?: boolean,
+  error?: any,
+}

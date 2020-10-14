@@ -5,7 +5,7 @@ const API = '9f35c9f77e6ec0ef94c0fdf3ff482571';
 
 // Async (redux-thunk)
 
-export const getWeather = (inputCity) => async (dispatch) => {
+export const getWeather = (inputCity: string) => async (dispatch: any) => {
   try {
     const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${inputCity}&appid=${API}&units=metric`);
     const { data: { name, main: { temp } } } = response;

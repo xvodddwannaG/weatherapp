@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, {ReactEventHandler, useState} from 'react';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { getWeather } from '../../redux/applyMiddleware';
 import { useIsCityNameValid } from '../../redux/selectors'
 
-const Form = () => {
+const Form: React.FC = () => {
   const [inputCity, setInputCity] = useState('');
 
   const dispatch = useDispatch();
   const isCityNameValid = useIsCityNameValid()
 
-  const submitFormHandler = (event) => {
+  const submitFormHandler = (event: any) => {
     event.preventDefault();
     dispatch(getWeather(inputCity));
   };
