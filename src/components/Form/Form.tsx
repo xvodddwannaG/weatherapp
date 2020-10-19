@@ -8,9 +8,9 @@ const Form: React.FC = () => {
   const [inputCity, setInputCity] = useState('');
 
   const dispatch = useDispatch();
-  const isCityNameValid = useIsCityNameValid()
+  const isCityNameValid = useIsCityNameValid();
 
-  const submitFormHandler = (event: React.SyntheticEvent) => {
+  const submitFormHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     dispatch(getWeather(inputCity));
   };
@@ -21,13 +21,17 @@ const Form: React.FC = () => {
     'is-invalid': isCityNameValid === false,
   });
 
+  const changeCityInputHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setInputCity(event.target.value);
+  };
+
   return (
     <form onSubmit={submitFormHandler}>
       <input
         type="text"
         className={inputClass}
         placeholder="city"
-        onChange={(event) => setInputCity(event.target.value)}
+        onChange={changeCityInputHandler}
         value={inputCity}
       />
     </form>

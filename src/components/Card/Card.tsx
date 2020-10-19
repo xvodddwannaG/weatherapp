@@ -3,14 +3,16 @@ import { useDispatch } from 'react-redux';
 import { setFavoritsList, setIsFavoriteCity } from '../../redux/actionCreator';
 import { useFavoritesList, useIsFavoriteCity, useData } from '../../redux/selectors';
 
+type DataType = {city: string, temp: number};
+
 const Card = () => {
   const dispatch = useDispatch();
-  const { city, temp } = useData();
-  const isFavoriteCity = useIsFavoriteCity();
-  const favoritesListRedux = useFavoritesList();
+  const { city, temp }: DataType = useData();
+  const isFavoriteCity: boolean = useIsFavoriteCity();
+  const favoritesList: Set<string> = useFavoritesList();
 
   const favoriteButtonHandler = () => {
-    const newFavoritesList = new Set([...favoritesListRedux]);
+    const newFavoritesList: Set<string> = new Set([...favoritesList]);
     if (isFavoriteCity) {
       newFavoritesList.delete(city);
       dispatch(setIsFavoriteCity(false));

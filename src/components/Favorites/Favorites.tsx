@@ -3,11 +3,18 @@ import { useDispatch } from 'react-redux';
 import { getWeather } from '../../redux/applyMiddleware';
 import './favorites.css';
 
+type PropType = { favoritesList: Set<string> };
+
 const Favorites = ({
   favoritesList,
 }:PropType) => {
   const dispatch = useDispatch();
-  const favoritesListArray = [...favoritesList];
+  const favoritesListArray: Array<string> = [...favoritesList];
+
+  const onClickButtonHandler = (event: React.MouseEvent<HTMLButtonElement>, item: string): void => {
+      event.preventDefault();
+      dispatch(getWeather(item));
+  };
 
   return (
     <div>
@@ -22,10 +29,7 @@ const Favorites = ({
               type="button"
               data-item={item}
               key={index}
-              onClick={(event) => {
-                event.preventDefault();
-                dispatch(getWeather(item));
-              }}
+              onClick={(event) => onClickButtonHandler(event, item)}
             >
               {item}
             </button>
@@ -34,7 +38,5 @@ const Favorites = ({
     </div>
   );
 };
-
-type PropType = { favoritesList: Set<string> }
 
 export default Favorites;

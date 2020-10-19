@@ -6,21 +6,27 @@ import Favorites from '../Favorites/Favorites';
 import { setCardData, setFavoritsList, setIsFavoriteCity } from '../../redux/actionCreator';
 import { useFavoritesList, useIsFavoriteCity } from '../../redux/selectors';
 
+type PreviousRequestType = {
+    city: string,
+    temp: number,
+} | null
+
+
 const Weather = () => {
   const dispatch = useDispatch();
-  const favoritesListRedux = useFavoritesList();
+  const favoritesList = useFavoritesList();
   const isFavoriteCity = useIsFavoriteCity();
 
   useEffect(() => {
-    const previousRequest = JSON.parse(localStorage.getItem('history')!);
+    const previousRequest: PreviousRequestType = JSON.parse(localStorage.getItem('history') || 'null');
     if (previousRequest) {
       dispatch(setCardData(previousRequest.city, previousRequest.temp));
     }
 
-    const favoritsList = new Set(JSON.parse(localStorage.getItem('favorites')!));
+    const favoritsList: Set<string> = new Set(JSON.parse(localStorage.getItem('favorites') || ''));
     dispatch(setFavoritsList(favoritsList));
 
-    const isFavoriteCityEffect = previousRequest && favoritesListRedux.has(previousRequest.city);
+    const isFavoriteCityEffect: boolean = Boolean(previousRequest && favoritesList.has(previousRequest.city));
     dispatch(setIsFavoriteCity(isFavoriteCityEffect));
   }, [isFavoriteCity]);
 
@@ -29,7 +35,7 @@ const Weather = () => {
       <Form />
       <Card />
       <Favorites
-        favoritesList={favoritesListRedux}
+        favoritesList={favoritesList}
       />
     </div>
   );

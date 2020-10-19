@@ -3,9 +3,32 @@ import {
   SET_CARD_DATA, FETCHING_ERROR, SET_FAVORITES_LIST, SET_IS_FAVORITE_CITY, IS_CITY_NAME_VALID
 } from './actionType';
 
+type FavoritesListActionType = {
+  type: string,
+  favoritsList?: Set<string>,
+}
+
+type CardDataActionType = {
+  type: string,
+  city?: string,
+  temp?: number,
+  payload?: boolean,
+  error?: any,
+}
+
+type CardStateType = {
+  data: {
+    city?: string
+    temp?: number
+    isFavoriteCity?: boolean
+  },
+  isCityNameValid?: boolean,
+  error?: any
+}
+
 const initialStateCardData = { data: {} };
 
-const cardData = (state: typeof initialStateCardData = initialStateCardData, action: CardDataActionType) => {
+const cardData = (state: typeof initialStateCardData = initialStateCardData, action: CardDataActionType): CardStateType => {
   switch (action.type) {
     case SET_CARD_DATA:
       return {
@@ -38,7 +61,7 @@ const cardData = (state: typeof initialStateCardData = initialStateCardData, act
   }
 };
 
-const favoritesList = (state = new Set(), action: FavoritesListActionType) => {
+const favoritesList = (state: Set<string> = new Set(), action: FavoritesListActionType): Set<string> => {
   switch (action.type) {
     case SET_FAVORITES_LIST:
       return action.favoritsList || state;
@@ -52,15 +75,3 @@ export const rootReducer = combineReducers({
   favoritesList,
 });
 
-type FavoritesListActionType = {
-  type: string,
-  favoritsList?: Set<any>,
-}
-
-type CardDataActionType = {
-  type: string,
-  city?: string,
-  temp?: number,
-  payload?: boolean,
-  error?: any,
-}
