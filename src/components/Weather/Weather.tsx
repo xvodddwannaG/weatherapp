@@ -23,7 +23,7 @@ const Weather = () => {
       dispatch(setCardData(previousRequest.city, previousRequest.temp));
     }
 
-    const favoritsList: Set<string> = new Set(JSON.parse(localStorage.getItem('favorites') || ''));
+    const favoritsList: Set<string> | null= new Set(JSON.parse(localStorage.getItem('favorites') || 'null'));
     dispatch(setFavoritsList(favoritsList));
 
     const isFavoriteCityEffect: boolean = Boolean(previousRequest && favoritesList.has(previousRequest.city));
